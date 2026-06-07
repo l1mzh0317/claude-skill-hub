@@ -1,15 +1,18 @@
-# claude-skill-hub
+# claude-skill-hub  (brand: alpha137 内部工作台)
 
-Static, data-driven hub with two tabbed collections:
-- **Skills** — download & restore reusable Claude Code skills (`skills.json` + `skills/<name>/`).
-- **Demos** — gallery of live deployed web pages with screenshots (`demos.json` + `demos/<name>.jpg`).
+Static, data-driven internal workstation with three tabbed collections (all-Chinese UI, dark terminal theme):
+- **技能 / Skills** — download & restore reusable Claude Code skills (`skills.json` + `skills/<name>/`).
+- **演示 / Demos** — gallery of live deployed pages with screenshots (`demos.json` + `demos/<name>.jpg`).
+- **服务 / Services** — internal online services launcher (`services.json`; currently empty → "服务陆续接入中" empty state).
 
-Built and deployed with the `zeabur-github-deploy` skill it hosts.
+Internal tool: external-facing bits (GitHub links, "restore anywhere", demo source links) are intentionally removed.
+Built and deployed with the `zeabur-github-deploy` skill it hosts. Repo name stays `claude-skill-hub`.
 
 ## Three-way sync
 Local git → GitHub (public, source of truth) → Zeabur auto-deploys on push to `main`.
 - Add a skill: create `skills/<name>/` (+ `files.txt`), add an entry to `skills.json`, `git push`.
 - Add a demo: screenshot the live page to `demos/<name>.jpg`, add an entry to `demos.json`, `git push`.
+- Add a service: add an entry to `services.json` (`name/title/description/url/status/tags`), `git push`.
   (Find deployed sites + their domains via the Zeabur API: `project ... { services { name domains { domain } } }`.)
 
 ## GitHub

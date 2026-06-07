@@ -39,12 +39,29 @@
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
   .bar .tag-internal{color:var(--faint);letter-spacing:.18em;font-size:11px}
 
-  .hero{padding:64px 0 30px}
+  .hero{padding:50px 0 24px;display:flex;align-items:center;gap:28px}
+  .hero-text{flex:1 1 auto;min-width:0}
+  .hero-art{flex:0 0 auto;width:42%;max-width:430px;display:flex;align-items:center;justify-content:flex-end}
   .kicker{font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.3em;
     text-transform:uppercase;color:var(--amber);opacity:0;animation:rise .7s .05s forwards}
   h1{font-family:"Space Mono",monospace;font-weight:700;
     font-size:clamp(2.2rem,6.5vw,4.4rem);line-height:1.08;letter-spacing:.01em;margin:18px 0 0;
     text-shadow:0 0 38px rgba(255,180,84,.22)}
+  .wordmark{font-size:clamp(3.2rem,11vw,7.2rem);line-height:.9;letter-spacing:-.03em;margin:14px 0 0;
+    text-shadow:0 0 50px rgba(255,180,84,.32)}
+  /* dragon art */
+  .dragon{width:100%;height:auto;overflow:visible;filter:drop-shadow(0 10px 40px rgba(245,151,10,.18))}
+  .dragon .ember{animation:ember 1.5s ease-in-out infinite}
+  @keyframes ember{0%,100%{opacity:.65}50%{opacity:1}}
+  .dragon .smoke .puff{fill:#d8d2c4;opacity:0;animation:smoke 5.5s linear infinite}
+  .dragon .smoke .puff:nth-child(2){animation-delay:1.5s}
+  .dragon .smoke .puff:nth-child(3){animation-delay:2.9s}
+  .dragon .smoke .puff:nth-child(4){animation-delay:4.1s}
+  @keyframes smoke{0%{opacity:0;transform:translate(0,0) scale(.5)}
+    16%{opacity:.45}55%{opacity:.3}100%{opacity:0;transform:translate(-30px,-130px) scale(2.2)}}
+  @media(max-width:820px){.hero{flex-direction:column;align-items:flex-start}
+    .hero-art{width:72%;max-width:340px;align-self:center;margin-top:6px}}
+  @media(max-width:480px){.hero-art{display:none}}
   h1 .cursor{display:inline-block;width:.5ch;height:1em;vertical-align:-.12em;background:var(--amber);
     margin-left:.14ch;animation:blink 1.05s steps(1) infinite;box-shadow:0 0 14px var(--amber-deep)}
   @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
@@ -150,9 +167,54 @@
 <main class="wrap">
 
   <section class="hero">
-    <div class="kicker">// 团队内部工作台</div>
-    <h1>技能 · 演示<br><span class="amber">在线服务</span><span class="cursor"></span></h1>
-    <p class="lede">alpha137 团队的内部入口 —— <strong>技能</strong>装到本机即用，<strong>演示</strong>一点就开，<strong>在线服务</strong>随取随用。</p>
+    <div class="hero-text">
+      <div class="kicker">// 团队内部工作台</div>
+      <h1 class="wordmark">alpha<span class="amber">137</span><span class="cursor"></span></h1>
+      <p class="lede"><strong>技能</strong>装到本机即用，<strong>演示</strong>一点就开，<strong>在线服务</strong>随取随用。</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg class="dragon" viewBox="0 0 380 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="dg" x1="40" y1="40" x2="340" y2="330" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#ffe1ad"/><stop offset=".5" stop-color="#ffb454"/><stop offset="1" stop-color="#e07d08"/>
+          </linearGradient>
+          <radialGradient id="dglow" cx="50%" cy="48%" r="55%">
+            <stop offset="0" stop-color="#f5970a" stop-opacity=".30"/><stop offset="1" stop-color="#f5970a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="205" cy="180" rx="180" ry="158" fill="url(#dglow)"/>
+        <!-- wing -->
+        <path d="M236 128 C306 90 352 116 364 148 C334 140 322 148 324 161 C302 148 288 154 288 169 C272 154 254 159 252 175 C240 162 232 147 236 128 Z" fill="url(#dg)" opacity=".18"/>
+        <path d="M240 134 L360 148 M252 150 L324 160 M260 162 L288 168" stroke="url(#dg)" stroke-width="2.1" opacity=".5" stroke-linecap="round"/>
+        <!-- dragon body / neck (line art) -->
+        <path d="M70 168 C84 150 104 142 124 146 C120 132 128 116 146 112 C140 124 142 134 150 140
+          C176 134 196 150 196 178 C196 206 178 224 150 246 C124 266 120 292 142 312 C150 320 150 320 150 320
+          C112 322 92 300 96 272 C99 250 116 236 132 220 C150 202 156 186 146 172 C138 160 120 156 104 164
+          C92 170 82 176 76 184 C70 178 68 172 70 168 Z"
+          stroke="url(#dg)" stroke-width="3.4" stroke-linejoin="round" fill="#140d06" fill-opacity=".5"/>
+        <!-- horns -->
+        <path d="M146 112 C150 90 170 78 196 76 C178 84 170 98 170 114" stroke="url(#dg)" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="M152 118 C162 100 182 92 204 96 C186 100 176 110 174 124" stroke="url(#dg)" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+        <!-- neck spines -->
+        <path d="M150 140 l9 -8 M161 160 l9 -7 M167 182 l9 -5 M160 206 l9 -4" stroke="url(#dg)" stroke-width="2.4" stroke-linecap="round"/>
+        <!-- snout line + eye -->
+        <path d="M72 168 C84 164 97 164 109 168" stroke="url(#dg)" stroke-width="2.1" stroke-linecap="round" opacity=".7"/>
+        <circle cx="120" cy="150" r="4.2" fill="url(#dg)" class="ember"/>
+        <!-- cigarette -->
+        <g transform="rotate(-8 56 180)">
+          <rect x="22" y="177" width="36" height="6" rx="2" fill="#efe7d6"/>
+          <rect x="22" y="177" width="9" height="6" rx="2" fill="#e0820a"/>
+          <circle cx="22" cy="180" r="3.2" fill="#ff5a1f" class="ember"/>
+        </g>
+        <!-- smoke -->
+        <g class="smoke">
+          <circle class="puff" cx="22" cy="172" r="9"/>
+          <circle class="puff" cx="22" cy="172" r="12"/>
+          <circle class="puff" cx="22" cy="172" r="8"/>
+          <circle class="puff" cx="22" cy="172" r="13"/>
+        </g>
+      </svg>
+    </div>
   </section>
 
   <div class="tabs" id="tabs">
@@ -163,24 +225,6 @@
   </div>
 
   <div id="grid" class="grid"><div class="loading">加载中…</div></div>
-
-  <section class="how" id="how-skills">
-    <div class="step"><div class="n">01</div><h4>选技能</h4><p>每张卡都有一键安装命令和原文查看。</p></div>
-    <div class="step"><div class="n">02</div><h4>一行装好</h4><p><code>curl … | bash -s &lt;名&gt;</code> 会把技能写入 <code>~/.claude/skills/</code>，仅此而已。</p></div>
-    <div class="step"><div class="n">03</div><h4>重载生效</h4><p>重启 Claude Code（或 <code>/reload</code>），技能即可用。</p></div>
-  </section>
-
-  <section class="how" id="how-demos" style="display:none">
-    <div class="step"><div class="n">01</div><h4>浏览</h4><p>每个演示都是真实上线的页面，带实时缩略图。</p></div>
-    <div class="step"><div class="n">02</div><h4>打开</h4><p>点卡片在新标签打开运行中的站点。</p></div>
-    <div class="step"><div class="n">03</div><h4>持续更新</h4><p>新上线的作品会陆续补充到这里。</p></div>
-  </section>
-
-  <section class="how" id="how-services" style="display:none">
-    <div class="step"><div class="n">01</div><h4>选服务</h4><p>内部在线服务集合，按用途分类。</p></div>
-    <div class="step"><div class="n">02</div><h4>一键打开</h4><p>点「打开服务」直接进入对应工具。</p></div>
-    <div class="step"><div class="n">03</div><h4>持续接入</h4><p>更多服务会陆续接入，敬请期待。</p></div>
-  </section>
 
   <footer>
     <div>© alpha137 · 内部工具</div>
@@ -288,8 +332,6 @@
 
   function render(tab){
     document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
-    ["skills","demos","services"].forEach(t =>
-      document.getElementById("how-"+t).style.display = t === tab ? "" : "none");
     grid.innerHTML = "";
     const items = DATA[tab] || [];
     if(!items.length){
