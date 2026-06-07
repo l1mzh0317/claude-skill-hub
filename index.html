@@ -173,45 +173,59 @@
       <p class="lede"><strong>技能</strong>装到本机即用，<strong>演示</strong>一点就开，<strong>在线服务</strong>随取随用。</p>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <svg class="dragon" viewBox="0 0 380 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="dragon" viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="dg" x1="40" y1="40" x2="340" y2="330" gradientUnits="userSpaceOnUse">
+          <linearGradient id="dg" x1="40" y1="40" x2="320" y2="300" gradientUnits="userSpaceOnUse">
             <stop stop-color="#ffe1ad"/><stop offset=".5" stop-color="#ffb454"/><stop offset="1" stop-color="#e07d08"/>
           </linearGradient>
-          <radialGradient id="dglow" cx="50%" cy="48%" r="55%">
-            <stop offset="0" stop-color="#f5970a" stop-opacity=".30"/><stop offset="1" stop-color="#f5970a" stop-opacity="0"/>
+          <radialGradient id="dglow" cx="50%" cy="50%" r="55%">
+            <stop offset="0" stop-color="#f5970a" stop-opacity=".28"/><stop offset="1" stop-color="#f5970a" stop-opacity="0"/>
           </radialGradient>
         </defs>
-        <ellipse cx="205" cy="180" rx="180" ry="158" fill="url(#dglow)"/>
-        <!-- wing -->
-        <path d="M236 128 C306 90 352 116 364 148 C334 140 322 148 324 161 C302 148 288 154 288 169 C272 154 254 159 252 175 C240 162 232 147 236 128 Z" fill="url(#dg)" opacity=".18"/>
-        <path d="M240 134 L360 148 M252 150 L324 160 M260 162 L288 168" stroke="url(#dg)" stroke-width="2.1" opacity=".5" stroke-linecap="round"/>
-        <!-- dragon body / neck (line art) -->
-        <path d="M70 168 C84 150 104 142 124 146 C120 132 128 116 146 112 C140 124 142 134 150 140
-          C176 134 196 150 196 178 C196 206 178 224 150 246 C124 266 120 292 142 312 C150 320 150 320 150 320
-          C112 322 92 300 96 272 C99 250 116 236 132 220 C150 202 156 186 146 172 C138 160 120 156 104 164
-          C92 170 82 176 76 184 C70 178 68 172 70 168 Z"
-          stroke="url(#dg)" stroke-width="3.4" stroke-linejoin="round" fill="#140d06" fill-opacity=".5"/>
+        <ellipse cx="190" cy="165" rx="175" ry="150" fill="url(#dglow)"/>
+
+        <!-- wing (behind) -->
+        <path d="M188 150 C246 92 312 86 346 112 C322 112 312 124 316 140 C298 124 282 130 284 148 C266 130 248 136 248 156 C232 140 214 150 188 150 Z"
+          fill="url(#dg)" opacity=".16"/>
+        <path d="M206 150 L342 114 M214 154 L316 138 M222 156 L284 148" stroke="url(#dg)" stroke-width="2" opacity=".4" stroke-linecap="round"/>
+
+        <!-- neck / chest -->
+        <path d="M150 168 C176 178 190 206 188 248 C187 276 176 296 150 300 C150 270 150 250 150 240 C150 210 140 190 128 178 Z"
+          fill="#160e06" stroke="url(#dg)" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M168 182 l11 -6 M180 204 l11 -4 M185 228 l11 -2 M184 254 l11 1" stroke="url(#dg)" stroke-width="2.4" stroke-linecap="round"/>
+
+        <!-- upper head + snout (facing left) -->
+        <path d="M58 150 C72 136 98 126 130 126 C152 126 166 132 176 144 C186 156 182 170 166 176 C146 183 116 180 100 173 C88 168 74 164 62 160 C56 158 54 153 58 150 Z"
+          fill="#1a1008" stroke="url(#dg)" stroke-width="3.2" stroke-linejoin="round"/>
+        <!-- lower jaw -->
+        <path d="M82 172 C100 184 140 188 168 178 C152 196 112 198 92 190 C82 186 76 178 82 172 Z"
+          fill="#160e06" stroke="url(#dg)" stroke-width="2.6" stroke-linejoin="round"/>
+
         <!-- horns -->
-        <path d="M146 112 C150 90 170 78 196 76 C178 84 170 98 170 114" stroke="url(#dg)" stroke-width="3.2" stroke-linecap="round"/>
-        <path d="M152 118 C162 100 182 92 204 96 C186 100 176 110 174 124" stroke="url(#dg)" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
-        <!-- neck spines -->
-        <path d="M150 140 l9 -8 M161 160 l9 -7 M167 182 l9 -5 M160 206 l9 -4" stroke="url(#dg)" stroke-width="2.4" stroke-linecap="round"/>
-        <!-- snout line + eye -->
-        <path d="M72 168 C84 164 97 164 109 168" stroke="url(#dg)" stroke-width="2.1" stroke-linecap="round" opacity=".7"/>
-        <circle cx="120" cy="150" r="4.2" fill="url(#dg)" class="ember"/>
+        <path d="M150 128 C156 100 180 84 210 80 C190 92 180 110 176 134 Z" fill="url(#dg)"/>
+        <path d="M162 126 C174 104 196 94 218 96 C200 104 190 118 184 138 Z" fill="url(#dg)" opacity=".8"/>
+        <path d="M168 140 C182 138 196 144 204 156 C190 154 180 156 174 164 Z" fill="url(#dg)" opacity=".5"/>
+
+        <!-- brow + eye + nostril -->
+        <path d="M104 138 C114 132 126 132 136 138" stroke="url(#dg)" stroke-width="2.4" stroke-linecap="round"/>
+        <ellipse cx="120" cy="146" rx="8" ry="4.6" fill="url(#dg)" transform="rotate(-12 120 146)"/>
+        <circle cx="118" cy="146" r="1.9" fill="#2a1602"/>
+        <path d="M64 150 C68 146 76 146 80 151" stroke="url(#dg)" stroke-width="2" stroke-linecap="round"/>
+        <!-- teeth -->
+        <path d="M96 172 l5 8 M110 175 l4 8 M124 175 l4 7" stroke="url(#dg)" stroke-width="1.8" stroke-linecap="round" opacity=".75"/>
+
         <!-- cigarette -->
-        <g transform="rotate(-8 56 180)">
-          <rect x="22" y="177" width="36" height="6" rx="2" fill="#efe7d6"/>
-          <rect x="22" y="177" width="9" height="6" rx="2" fill="#e0820a"/>
-          <circle cx="22" cy="180" r="3.2" fill="#ff5a1f" class="ember"/>
+        <g transform="rotate(12 70 184)">
+          <rect x="30" y="181" width="42" height="6.5" rx="2" fill="#efe7d6"/>
+          <rect x="30" y="181" width="11" height="6.5" rx="2" fill="#e0820a"/>
+          <circle cx="30" cy="184.2" r="3.4" fill="#ff5a1f" class="ember"/>
         </g>
         <!-- smoke -->
         <g class="smoke">
-          <circle class="puff" cx="22" cy="172" r="9"/>
-          <circle class="puff" cx="22" cy="172" r="12"/>
-          <circle class="puff" cx="22" cy="172" r="8"/>
-          <circle class="puff" cx="22" cy="172" r="13"/>
+          <circle class="puff" cx="28" cy="176" r="9"/>
+          <circle class="puff" cx="28" cy="176" r="12"/>
+          <circle class="puff" cx="28" cy="176" r="8"/>
+          <circle class="puff" cx="28" cy="176" r="13"/>
         </g>
       </svg>
     </div>
