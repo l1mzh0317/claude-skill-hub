@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude Skill Hub — download &amp; restore Claude Code skills</title>
-<meta name="description" content="Battle-tested Claude Code skills. Download a skill or restore it onto any machine with one line.">
+<title>Claude Skill Hub — skills &amp; live demos</title>
+<meta name="description" content="Battle-tested Claude Code skills you can restore with one line, plus a gallery of live deployed demos.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -25,18 +25,11 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:"IBM Plex Sans",sans-serif;
-    font-weight:400;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-    position:relative;
-    min-height:100vh;
+    background:var(--bg);color:var(--ink);
+    font-family:"IBM Plex Sans",sans-serif;font-weight:400;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;min-height:100vh;
   }
-  /* atmospheric layers */
-  body::before{ /* amber glow + grid */
+  body::before{
     content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
       radial-gradient(900px 480px at 78% -8%, rgba(255,180,84,.13), transparent 60%),
@@ -45,14 +38,12 @@
       linear-gradient(90deg, transparent 95%, rgba(255,180,84,.035) 95%) 0 0/34px 100%,
       var(--bg);
   }
-  body::after{ /* grain */
+  body::after{
     content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-
   .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 
-  /* ---- top bar ---- */
   header.bar{
     display:flex;align-items:center;justify-content:space-between;
     padding:22px 24px;max-width:1040px;margin:0 auto;
@@ -65,101 +56,87 @@
   .bar a{color:var(--dim);text-decoration:none;transition:color .2s}
   .bar a:hover{color:var(--amber)}
 
-  /* ---- hero ---- */
-  .hero{padding:64px 0 40px;text-align:left}
-  .kicker{
-    font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.32em;
-    text-transform:uppercase;color:var(--amber);opacity:0;
-    animation:rise .7s .05s forwards;
-  }
-  h1{
-    font-family:"Space Mono",monospace;font-weight:700;
-    font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.02;
-    letter-spacing:-.01em;margin:18px 0 0;
-    text-shadow:0 0 38px rgba(255,180,84,.22);
-  }
+  .hero{padding:64px 0 30px;text-align:left}
+  .kicker{font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--amber);opacity:0;animation:rise .7s .05s forwards}
+  h1{font-family:"Space Mono",monospace;font-weight:700;
+    font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.02;letter-spacing:-.01em;margin:18px 0 0;
+    text-shadow:0 0 38px rgba(255,180,84,.22)}
   h1 .cursor{display:inline-block;width:.55ch;height:1em;vertical-align:-.12em;
     background:var(--amber);margin-left:.12ch;animation:blink 1.05s steps(1) infinite;
     box-shadow:0 0 14px var(--amber-deep)}
   @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
   h1 span.amber{color:var(--amber)}
-  .lede{max-width:60ch;margin:22px 0 0;color:var(--dim);font-size:1.12rem;font-weight:300;
+  .lede{max-width:62ch;margin:22px 0 0;color:var(--dim);font-size:1.12rem;font-weight:300;
     opacity:0;animation:rise .7s .18s forwards}
-  .hero .lede strong{color:var(--ink);font-weight:500}
+  .lede strong{color:var(--ink);font-weight:500}
 
-  /* hero quick install */
-  .quick{margin:34px 0 0;opacity:0;animation:rise .7s .3s forwards}
-  .quick .label{font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--faint);margin-bottom:9px}
-  .cmd{
-    display:flex;align-items:center;gap:14px;
-    background:var(--bg-soft);border:1px solid var(--line);border-radius:11px;
-    padding:15px 16px;font-family:"Space Mono",monospace;font-size:13.5px;
-    box-shadow:var(--shadow);
-  }
-  .cmd code{color:var(--ink);white-space:nowrap;overflow-x:auto;flex:1;scrollbar-width:none}
-  .cmd code::-webkit-scrollbar{display:none}
-  .cmd code .pr{color:var(--amber);user-select:none}
-  .copy{
-    flex-shrink:0;cursor:pointer;border:1px solid var(--line);background:transparent;
-    color:var(--dim);font-family:"Space Mono",monospace;font-size:11.5px;
-    letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:7px;
-    transition:all .18s;
-  }
-  .copy:hover{color:var(--bg);background:var(--amber);border-color:var(--amber)}
-  .copy.ok{color:var(--green);border-color:var(--green)}
-
-  /* ---- catalog ---- */
-  .section-head{
-    display:flex;align-items:baseline;gap:14px;margin:70px 0 26px;
-    font-family:"Space Mono",monospace;
-  }
-  .section-head h2{font-size:14px;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--ink);font-weight:700}
-  .section-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
-  .section-head .count{color:var(--faint);font-size:12px}
+  /* tabs */
+  .tabs{display:flex;align-items:center;gap:10px;margin:54px 0 26px;
+    font-family:"Space Mono",monospace;flex-wrap:wrap}
+  .tab{cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--dim);
+    font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    padding:9px 18px;border-radius:9px;transition:all .2s;display:inline-flex;align-items:center;gap:9px}
+  .tab:hover{color:var(--ink);border-color:#3a382e}
+  .tab.active{color:var(--bg);background:var(--amber);border-color:var(--amber);font-weight:700}
+  .tab .n{font-size:11px;opacity:.75}
+  .tabs .rule{flex:1;height:1px;min-width:30px;background:linear-gradient(90deg,var(--line),transparent)}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:22px}
 
-  .card{
-    background:var(--panel);border:1px solid var(--line);border-radius:14px;
-    overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    display:flex;flex-direction:column;box-shadow:var(--shadow);
     transition:transform .25s, border-color .25s;position:relative;
-  }
+    opacity:0;animation:rise .6s forwards}
   .card:hover{transform:translateY(-4px);border-color:#3a382e}
-  .card .titlebar{
-    display:flex;align-items:center;gap:8px;padding:12px 16px;
-    border-bottom:1px solid var(--line);background:rgba(255,255,255,.012);
-  }
+  .card .titlebar{display:flex;align-items:center;gap:8px;padding:12px 16px;
+    border-bottom:1px solid var(--line);background:rgba(255,255,255,.012)}
   .card .titlebar .tdot{width:10px;height:10px;border-radius:50%;background:#322f27}
   .card .titlebar .tdot:nth-child(1){background:#3a3128}
-  .card .titlebar .fname{margin-left:8px;font-family:"Space Mono",monospace;
-    font-size:12px;color:var(--faint)}
+  .card .titlebar .fname{margin-left:8px;font-family:"Space Mono",monospace;font-size:12px;color:var(--faint)}
   .card .body{padding:22px 20px 20px;display:flex;flex-direction:column;flex:1}
   .card h3{font-family:"Space Mono",monospace;font-weight:700;font-size:1.18rem;
     color:var(--amber);line-height:1.25;margin-bottom:6px}
-  .card .ver{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);
-    margin-bottom:14px}
+  .card .ver{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);margin-bottom:14px}
   .card p.desc{color:var(--dim);font-size:.96rem;font-weight:300;flex:1}
   .tags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 18px}
   .tag{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.05em;
     color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:3px 8px}
-  .card .cmd{padding:12px 13px;font-size:12px;border-radius:9px}
+  .card .cmd{display:flex;align-items:center;gap:14px;background:var(--bg-soft);
+    border:1px solid var(--line);border-radius:9px;padding:12px 13px;
+    font-family:"Space Mono",monospace;font-size:12px}
+  .card .cmd code{color:var(--ink);white-space:nowrap;overflow-x:auto;flex:1;scrollbar-width:none}
+  .card .cmd code::-webkit-scrollbar{display:none}
+  .card .cmd code .pr{color:var(--amber);user-select:none}
+  .copy{flex-shrink:0;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--dim);
+    font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+    padding:7px 12px;border-radius:7px;transition:all .18s}
+  .copy:hover{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+  .copy.ok{color:var(--green);border-color:var(--green)}
   .card-actions{display:flex;gap:12px;margin-top:14px;align-items:center}
-  .dl{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.04em;
-    color:var(--dim);text-decoration:none;border-bottom:1px dashed var(--faint);
-    padding-bottom:1px;transition:color .2s,border-color .2s}
+  .dl{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.04em;color:var(--dim);
+    text-decoration:none;border-bottom:1px dashed var(--faint);padding-bottom:1px;
+    transition:color .2s,border-color .2s}
   .dl:hover{color:var(--amber);border-color:var(--amber)}
   .card-actions .spacer{flex:1}
-  .card-actions .src{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--faint);
-    text-decoration:none}
+  .card-actions .src{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--faint);text-decoration:none}
   .card-actions .src:hover{color:var(--ink)}
 
-  /* ---- how / footer ---- */
+  /* demo card */
+  .demo-card .thumb{display:block;position:relative;border-bottom:1px solid var(--line);
+    aspect-ratio:16/9;overflow:hidden;background:#000}
+  .demo-card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+  .demo-card:hover .thumb img{transform:scale(1.05)}
+  .demo-card .thumb .visit-tag{position:absolute;right:10px;bottom:10px;
+    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.05em;
+    background:rgba(10,10,11,.78);color:var(--amber);border:1px solid var(--line);
+    padding:5px 10px;border-radius:6px;backdrop-filter:blur(4px)}
+  .demo-card .body{padding:18px 20px 20px}
+  .demo-card .ver{margin-bottom:12px}
+
   .how{margin:74px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .how .step{border-left:2px solid var(--line);padding:4px 0 4px 18px}
-  .how .step .n{font-family:"Space Mono",monospace;color:var(--amber);font-size:13px;
-    letter-spacing:.1em}
+  .how .step .n{font-family:"Space Mono",monospace;color:var(--amber);font-size:13px;letter-spacing:.1em}
   .how .step h4{font-size:1rem;margin:8px 0 5px;font-weight:600}
   .how .step p{color:var(--dim);font-size:.9rem;font-weight:300}
 
@@ -170,15 +147,13 @@
   footer a:hover{color:var(--amber)}
 
   .loading{color:var(--faint);font-family:"Space Mono",monospace;font-size:13px;padding:20px 0}
-
   @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .card{opacity:0;animation:rise .6s forwards}
 
   @media(max-width:560px){
     .grid{grid-template-columns:1fr}
     .how{grid-template-columns:1fr}
-    .hero{padding:40px 0 24px}
-    .cmd code{font-size:12px}
+    .hero{padding:40px 0 20px}
+    .card .cmd code{font-size:11.5px}
   }
 </style>
 </head>
@@ -192,31 +167,29 @@
 <main class="wrap">
 
   <section class="hero">
-    <div class="kicker">// reusable claude code skills</div>
-    <h1>Skills you can<br><span class="amber">restore anywhere</span><span class="cursor"></span></h1>
-    <p class="lede" id="tagline">Battle-tested Claude Code skills — <strong>download one</strong>, or pull it onto any machine with <strong>a single line</strong>.</p>
-
-    <div class="quick">
-      <div class="label">restore the deploy skill →</div>
-      <div class="cmd">
-        <code id="hero-cmd"><span class="pr">$</span> curl -fsSL …/install.sh | bash -s zeabur-github-deploy</code>
-        <button class="copy" data-copy-target="hero-cmd">copy</button>
-      </div>
-    </div>
+    <div class="kicker">// reusable skills + live demos</div>
+    <h1>Skills &amp; demos,<br><span class="amber">one place</span><span class="cursor"></span></h1>
+    <p class="lede"><strong>Claude Code skills</strong> you can restore onto any machine with a single line — and a gallery of <strong>live demos</strong> deployed to the server.</p>
   </section>
 
-  <div class="section-head">
-    <h2>Catalog</h2>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="skills">Skills <span class="n" id="skills-count"></span></button>
+    <button class="tab" data-tab="demos">Demos <span class="n" id="demos-count"></span></button>
     <div class="rule"></div>
-    <div class="count" id="count"></div>
   </div>
 
-  <div id="grid" class="grid"><div class="loading">loading catalog…</div></div>
+  <div id="grid" class="grid"><div class="loading">loading…</div></div>
 
-  <section class="how">
+  <section class="how" id="how-skills">
     <div class="step"><div class="n">01</div><h4>Pick a skill</h4><p>Each card has its one-line restore command and a direct file download.</p></div>
     <div class="step"><div class="n">02</div><h4>Run one line</h4><p><code>curl … | bash -s &lt;name&gt;</code> writes the skill into <code>~/.claude/skills/</code> — nothing else.</p></div>
     <div class="step"><div class="n">03</div><h4>Reload</h4><p>Restart Claude Code (or <code>/reload</code>) and the skill is live.</p></div>
+  </section>
+
+  <section class="how" id="how-demos" style="display:none">
+    <div class="step"><div class="n">01</div><h4>Browse</h4><p>Each demo is a real page deployed on the Hong Kong server, with a live thumbnail.</p></div>
+    <div class="step"><div class="n">02</div><h4>Visit</h4><p>Click a card to open the running site in a new tab — or jump to its source.</p></div>
+    <div class="step"><div class="n">03</div><h4>Ship more</h4><p>New deploys are added with the <code>zeabur-github-deploy</code> skill, then listed here.</p></div>
   </section>
 
   <footer>
@@ -230,14 +203,15 @@
   const GH_OWNER = "l1mzh0317";
   const GH_REPO  = "claude-skill-hub";
   const ORIGIN   = location.origin.startsWith("http") ? location.origin : "https://claude-skill-hub.zeabur.app";
-
   document.getElementById("repo-link").href = `https://github.com/${GH_OWNER}/${GH_REPO}`;
 
-  const cmdFor = (name) => `curl -fsSL ${ORIGIN}/install.sh | bash -s ${name}`;
-  const cmdHTML = (name) => `<span class="pr">$</span> ${cmdFor(name)}`;
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+  const cmdFor  = (name) => `curl -fsSL ${ORIGIN}/install.sh | bash -s ${name}`;
+  const cmdHTML = (name) => `<span class="pr">$</span> ${esc(cmdFor(name))}`;
 
-  // hero command
-  document.getElementById("hero-cmd").innerHTML = cmdHTML("zeabur-github-deploy");
+  const grid = document.getElementById("grid");
+  let DATA = { skills: [], demos: [] };
+  let CURRENT = "skills";
 
   function wireCopy(btn){
     btn.addEventListener("click", async () => {
@@ -249,51 +223,84 @@
       setTimeout(()=>{btn.textContent=old;btn.classList.remove("ok");}, 1600);
     });
   }
-  document.querySelectorAll(".copy").forEach(wireCopy);
 
-  fetch("skills.json")
-    .then(r => r.json())
-    .then(data => {
-      if(data.hub?.tagline) document.getElementById("tagline").innerHTML =
-        data.hub.tagline.replace("Download or restore", "<strong>Download</strong> or <strong>restore</strong>");
-      const skills = data.skills || [];
-      const grid = document.getElementById("grid");
-      document.getElementById("count").textContent = `${skills.length} skill${skills.length!==1?"s":""}`;
-      grid.innerHTML = "";
-      skills.forEach((s, i) => {
-        const tags = (s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("");
-        const cmdId = `cmd-${s.name}`;
-        const card = document.createElement("article");
-        card.className = "card";
-        card.style.animationDelay = `${0.12 + i*0.08}s`;
-        card.innerHTML = `
-          <div class="titlebar">
-            <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
-            <span class="fname">~/.claude/skills/${s.name}/</span>
-          </div>
-          <div class="body">
-            <h3>${s.title}</h3>
-            <div class="ver">v${s.version||"1.0.0"} · ${s.name}</div>
-            <p class="desc">${s.description}</p>
-            <div class="tags">${tags}</div>
-            <div class="cmd">
-              <code id="${cmdId}">${cmdHTML(s.name)}</code>
-              <button class="copy" data-copy-target="${cmdId}">copy</button>
-            </div>
-            <div class="card-actions">
-              <a class="dl" href="skills/${s.name}/SKILL.md" download>↓ download SKILL.md</a>
-              <span class="spacer"></span>
-              <a class="src" href="skills/${s.name}/SKILL.md" target="_blank" rel="noopener">view raw ↗</a>
-            </div>
-          </div>`;
-        grid.appendChild(card);
-        wireCopy(card.querySelector(".copy"));
-      });
-    })
-    .catch(err => {
-      document.getElementById("grid").innerHTML =
-        `<div class="loading">failed to load catalog: ${err.message}</div>`;
-    });
+  function skillCard(s, i){
+    const tags = (s.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
+    const cmdId = `cmd-${esc(s.name)}`;
+    const card = document.createElement("article");
+    card.className = "card";
+    card.style.animationDelay = `${0.05 + i*0.07}s`;
+    card.innerHTML = `
+      <div class="titlebar"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+        <span class="fname">~/.claude/skills/${esc(s.name)}/</span></div>
+      <div class="body">
+        <h3>${esc(s.title)}</h3>
+        <div class="ver">v${esc(s.version||"1.0.0")} · ${esc(s.name)}</div>
+        <p class="desc">${esc(s.description)}</p>
+        <div class="tags">${tags}</div>
+        <div class="cmd"><code id="${cmdId}">${cmdHTML(s.name)}</code>
+          <button class="copy" data-copy-target="${cmdId}">copy</button></div>
+        <div class="card-actions">
+          <a class="dl" href="skills/${esc(s.name)}/SKILL.md" download>↓ download SKILL.md</a>
+          <span class="spacer"></span>
+          <a class="src" href="skills/${esc(s.name)}/SKILL.md" target="_blank" rel="noopener">view raw ↗</a>
+        </div>
+      </div>`;
+    card.querySelector(".copy") && wireCopy(card.querySelector(".copy"));
+    return card;
+  }
+
+  function demoCard(d, i){
+    const tags = (d.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
+    const host = (()=>{ try { return new URL(d.url).host; } catch(e){ return esc(d.url); } })();
+    const srcLink = d.repo ? `<a class="src" href="${esc(d.repo)}" target="_blank" rel="noopener">source ↗</a>` : "";
+    const card = document.createElement("article");
+    card.className = "card demo-card";
+    card.style.animationDelay = `${0.05 + i*0.07}s`;
+    card.innerHTML = `
+      <a class="thumb" href="${esc(d.url)}" target="_blank" rel="noopener">
+        <img src="${esc(d.thumb)}" alt="${esc(d.title)} screenshot" loading="lazy">
+        <span class="visit-tag">visit ↗</span>
+      </a>
+      <div class="body">
+        <h3>${esc(d.title)}</h3>
+        <div class="ver">${esc(host)}</div>
+        <p class="desc">${esc(d.description)}</p>
+        <div class="tags">${tags}</div>
+        <div class="card-actions">
+          <a class="dl" href="${esc(d.url)}" target="_blank" rel="noopener">↗ open live site</a>
+          <span class="spacer"></span>
+          ${srcLink}
+        </div>
+      </div>`;
+    return card;
+  }
+
+  function render(tab){
+    CURRENT = tab;
+    document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+    document.getElementById("how-skills").style.display = tab === "skills" ? "" : "none";
+    document.getElementById("how-demos").style.display  = tab === "demos"  ? "" : "none";
+    grid.innerHTML = "";
+    const items = DATA[tab] || [];
+    if(!items.length){ grid.innerHTML = `<div class="loading">nothing here yet.</div>`; return; }
+    items.forEach((item, i) => grid.appendChild(tab === "skills" ? skillCard(item, i) : demoCard(item, i)));
+  }
+
+  document.querySelectorAll(".tab").forEach(btn =>
+    btn.addEventListener("click", () => { render(btn.dataset.tab); location.hash = btn.dataset.tab; }));
+
+  Promise.all([
+    fetch("skills.json").then(r=>r.json()).catch(()=>({skills:[]})),
+    fetch("demos.json").then(r=>r.json()).catch(()=>({demos:[]})),
+  ]).then(([sk, dm]) => {
+    DATA.skills = sk.skills || [];
+    DATA.demos  = dm.demos  || [];
+    document.getElementById("skills-count").textContent = DATA.skills.length;
+    document.getElementById("demos-count").textContent  = DATA.demos.length;
+    const start = location.hash.replace("#","") === "demos" ? "demos" : "skills";
+    render(start);
+  }).catch(err => { grid.innerHTML = `<div class="loading">failed to load: ${esc(err.message)}</div>`; });
 </script>
 </body>
 </html>

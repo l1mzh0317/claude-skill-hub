@@ -1,0 +1,22 @@
+{
+  "demos": [
+    {
+      "name": "yelei-otome",
+      "title": "夜泪 · 搜证",
+      "description": "雨夜宅邸窃案——派遣君曜 / 江流 / 沈书三位伙伴前往书房、走廊、花园搜证，收集线索拼出真相的乙女向推理 demo。",
+      "url": "https://yelei-otome.zeabur.app",
+      "repo": "",
+      "thumb": "demos/yelei-otome.jpg",
+      "tags": ["otome", "deduction", "html"]
+    },
+    {
+      "name": "last-old-maid",
+      "title": "最後の鬼札 · The Last Old Maid",
+      "description": "暴雨夜的洋馆里，与三名陌生而危险的男子抽鬼牌——在真相、心动与生还之间下注的单页 HTML 纸牌小游戏。",
+      "url": "https://last-old-maid.zeabur.app",
+      "repo": "https://github.com/l1mzh0317/last-old-maid",
+      "thumb": "demos/last-old-maid.jpg",
+      "tags": ["game", "cards", "html"]
+    }
+  ]
+}
