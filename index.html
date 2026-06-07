@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Skill Hub — download &amp; restore Claude Code skills</title>
+<meta name="description" content="Battle-tested Claude Code skills. Download a skill or restore it onto any machine with one line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --bg-soft:#111113;
+    --panel:#141416;
+    --line:#26261f;
+    --ink:#ece7da;
+    --dim:#8d887b;
+    --faint:#5a564d;
+    --amber:#ffb454;
+    --amber-deep:#f5970a;
+    --green:#8fe388;
+    --shadow:0 18px 50px -20px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    position:relative;
+    min-height:100vh;
+  }
+  /* atmospheric layers */
+  body::before{ /* amber glow + grid */
+    content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(900px 480px at 78% -8%, rgba(255,180,84,.13), transparent 60%),
+      radial-gradient(700px 600px at -5% 100%, rgba(143,227,136,.06), transparent 55%),
+      linear-gradient(transparent 95%, rgba(255,180,84,.035) 95%) 0 0/100% 34px,
+      linear-gradient(90deg, transparent 95%, rgba(255,180,84,.035) 95%) 0 0/34px 100%,
+      var(--bg);
+  }
+  body::after{ /* grain */
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  /* ---- top bar ---- */
+  header.bar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 24px;max-width:1040px;margin:0 auto;
+    font-family:"Space Mono",monospace;font-size:13px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;letter-spacing:.02em}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--amber);
+    box-shadow:0 0 12px var(--amber-deep);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .bar a{color:var(--dim);text-decoration:none;transition:color .2s}
+  .bar a:hover{color:var(--amber)}
+
+  /* ---- hero ---- */
+  .hero{padding:64px 0 40px;text-align:left}
+  .kicker{
+    font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--amber);opacity:0;
+    animation:rise .7s .05s forwards;
+  }
+  h1{
+    font-family:"Space Mono",monospace;font-weight:700;
+    font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.02;
+    letter-spacing:-.01em;margin:18px 0 0;
+    text-shadow:0 0 38px rgba(255,180,84,.22);
+  }
+  h1 .cursor{display:inline-block;width:.55ch;height:1em;vertical-align:-.12em;
+    background:var(--amber);margin-left:.12ch;animation:blink 1.05s steps(1) infinite;
+    box-shadow:0 0 14px var(--amber-deep)}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  h1 span.amber{color:var(--amber)}
+  .lede{max-width:60ch;margin:22px 0 0;color:var(--dim);font-size:1.12rem;font-weight:300;
+    opacity:0;animation:rise .7s .18s forwards}
+  .hero .lede strong{color:var(--ink);font-weight:500}
+
+  /* hero quick install */
+  .quick{margin:34px 0 0;opacity:0;animation:rise .7s .3s forwards}
+  .quick .label{font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:9px}
+  .cmd{
+    display:flex;align-items:center;gap:14px;
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:11px;
+    padding:15px 16px;font-family:"Space Mono",monospace;font-size:13.5px;
+    box-shadow:var(--shadow);
+  }
+  .cmd code{color:var(--ink);white-space:nowrap;overflow-x:auto;flex:1;scrollbar-width:none}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code .pr{color:var(--amber);user-select:none}
+  .copy{
+    flex-shrink:0;cursor:pointer;border:1px solid var(--line);background:transparent;
+    color:var(--dim);font-family:"Space Mono",monospace;font-size:11.5px;
+    letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:7px;
+    transition:all .18s;
+  }
+  .copy:hover{color:var(--bg);background:var(--amber);border-color:var(--amber)}
+  .copy.ok{color:var(--green);border-color:var(--green)}
+
+  /* ---- catalog ---- */
+  .section-head{
+    display:flex;align-items:baseline;gap:14px;margin:70px 0 26px;
+    font-family:"Space Mono",monospace;
+  }
+  .section-head h2{font-size:14px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--ink);font-weight:700}
+  .section-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+  .section-head .count{color:var(--faint);font-size:12px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:22px}
+
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);
+    transition:transform .25s, border-color .25s;position:relative;
+  }
+  .card:hover{transform:translateY(-4px);border-color:#3a382e}
+  .card .titlebar{
+    display:flex;align-items:center;gap:8px;padding:12px 16px;
+    border-bottom:1px solid var(--line);background:rgba(255,255,255,.012);
+  }
+  .card .titlebar .tdot{width:10px;height:10px;border-radius:50%;background:#322f27}
+  .card .titlebar .tdot:nth-child(1){background:#3a3128}
+  .card .titlebar .fname{margin-left:8px;font-family:"Space Mono",monospace;
+    font-size:12px;color:var(--faint)}
+  .card .body{padding:22px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .card h3{font-family:"Space Mono",monospace;font-weight:700;font-size:1.18rem;
+    color:var(--amber);line-height:1.25;margin-bottom:6px}
+  .card .ver{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);
+    margin-bottom:14px}
+  .card p.desc{color:var(--dim);font-size:.96rem;font-weight:300;flex:1}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 18px}
+  .tag{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.05em;
+    color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:3px 8px}
+  .card .cmd{padding:12px 13px;font-size:12px;border-radius:9px}
+  .card-actions{display:flex;gap:12px;margin-top:14px;align-items:center}
+  .dl{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.04em;
+    color:var(--dim);text-decoration:none;border-bottom:1px dashed var(--faint);
+    padding-bottom:1px;transition:color .2s,border-color .2s}
+  .dl:hover{color:var(--amber);border-color:var(--amber)}
+  .card-actions .spacer{flex:1}
+  .card-actions .src{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--faint);
+    text-decoration:none}
+  .card-actions .src:hover{color:var(--ink)}
+
+  /* ---- how / footer ---- */
+  .how{margin:74px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .how .step{border-left:2px solid var(--line);padding:4px 0 4px 18px}
+  .how .step .n{font-family:"Space Mono",monospace;color:var(--amber);font-size:13px;
+    letter-spacing:.1em}
+  .how .step h4{font-size:1rem;margin:8px 0 5px;font-weight:600}
+  .how .step p{color:var(--dim);font-size:.9rem;font-weight:300}
+
+  footer{margin:80px 0 50px;padding-top:26px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-family:"Space Mono",monospace;font-size:12px;color:var(--faint)}
+  footer a{color:var(--dim);text-decoration:none}
+  footer a:hover{color:var(--amber)}
+
+  .loading{color:var(--faint);font-family:"Space Mono",monospace;font-size:13px;padding:20px 0}
+
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .card{opacity:0;animation:rise .6s forwards}
+
+  @media(max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .how{grid-template-columns:1fr}
+    .hero{padding:40px 0 24px}
+    .cmd code{font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand"><span class="dot"></span> CLAUDE&nbsp;SKILL&nbsp;HUB</div>
+  <nav><a id="repo-link" href="#" target="_blank" rel="noopener">/ source on github</a></nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="kicker">// reusable claude code skills</div>
+    <h1>Skills you can<br><span class="amber">restore anywhere</span><span class="cursor"></span></h1>
+    <p class="lede" id="tagline">Battle-tested Claude Code skills — <strong>download one</strong>, or pull it onto any machine with <strong>a single line</strong>.</p>
+
+    <div class="quick">
+      <div class="label">restore the deploy skill →</div>
+      <div class="cmd">
+        <code id="hero-cmd"><span class="pr">$</span> curl -fsSL …/install.sh | bash -s zeabur-github-deploy</code>
+        <button class="copy" data-copy-target="hero-cmd">copy</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2>Catalog</h2>
+    <div class="rule"></div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div id="grid" class="grid"><div class="loading">loading catalog…</div></div>
+
+  <section class="how">
+    <div class="step"><div class="n">01</div><h4>Pick a skill</h4><p>Each card has its one-line restore command and a direct file download.</p></div>
+    <div class="step"><div class="n">02</div><h4>Run one line</h4><p><code>curl … | bash -s &lt;name&gt;</code> writes the skill into <code>~/.claude/skills/</code> — nothing else.</p></div>
+    <div class="step"><div class="n">03</div><h4>Reload</h4><p>Restart Claude Code (or <code>/reload</code>) and the skill is live.</p></div>
+  </section>
+
+  <footer>
+    <div>Built &amp; deployed with the <span style="color:var(--amber)">zeabur-github-deploy</span> skill it hosts.</div>
+    <div>local ↔ github ↔ zeabur · auto-deploy on push</div>
+  </footer>
+
+</main>
+
+<script>
+  const GH_OWNER = "l1mzh0317";
+  const GH_REPO  = "claude-skill-hub";
+  const ORIGIN   = location.origin.startsWith("http") ? location.origin : "https://claude-skill-hub.zeabur.app";
+
+  document.getElementById("repo-link").href = `https://github.com/${GH_OWNER}/${GH_REPO}`;
+
+  const cmdFor = (name) => `curl -fsSL ${ORIGIN}/install.sh | bash -s ${name}`;
+  const cmdHTML = (name) => `<span class="pr">$</span> ${cmdFor(name)}`;
+
+  // hero command
+  document.getElementById("hero-cmd").innerHTML = cmdHTML("zeabur-github-deploy");
+
+  function wireCopy(btn){
+    btn.addEventListener("click", async () => {
+      const el = document.getElementById(btn.dataset.copyTarget);
+      const text = el.textContent.replace(/^\$\s*/, "");
+      try { await navigator.clipboard.writeText(text); }
+      catch(e){ const r=document.createRange();r.selectNode(el);getSelection().removeAllRanges();getSelection().addRange(r);document.execCommand("copy"); }
+      const old = btn.textContent; btn.textContent = "copied ✓"; btn.classList.add("ok");
+      setTimeout(()=>{btn.textContent=old;btn.classList.remove("ok");}, 1600);
+    });
+  }
+  document.querySelectorAll(".copy").forEach(wireCopy);
+
+  fetch("skills.json")
+    .then(r => r.json())
+    .then(data => {
+      if(data.hub?.tagline) document.getElementById("tagline").innerHTML =
+        data.hub.tagline.replace("Download or restore", "<strong>Download</strong> or <strong>restore</strong>");
+      const skills = data.skills || [];
+      const grid = document.getElementById("grid");
+      document.getElementById("count").textContent = `${skills.length} skill${skills.length!==1?"s":""}`;
+      grid.innerHTML = "";
+      skills.forEach((s, i) => {
+        const tags = (s.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("");
+        const cmdId = `cmd-${s.name}`;
+        const card = document.createElement("article");
+        card.className = "card";
+        card.style.animationDelay = `${0.12 + i*0.08}s`;
+        card.innerHTML = `
+          <div class="titlebar">
+            <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+            <span class="fname">~/.claude/skills/${s.name}/</span>
+          </div>
+          <div class="body">
+            <h3>${s.title}</h3>
+            <div class="ver">v${s.version||"1.0.0"} · ${s.name}</div>
+            <p class="desc">${s.description}</p>
+            <div class="tags">${tags}</div>
+            <div class="cmd">
+              <code id="${cmdId}">${cmdHTML(s.name)}</code>
+              <button class="copy" data-copy-target="${cmdId}">copy</button>
+            </div>
+            <div class="card-actions">
+              <a class="dl" href="skills/${s.name}/SKILL.md" download>↓ download SKILL.md</a>
+              <span class="spacer"></span>
+              <a class="src" href="skills/${s.name}/SKILL.md" target="_blank" rel="noopener">view raw ↗</a>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+        wireCopy(card.querySelector(".copy"));
+      });
+    })
+    .catch(err => {
+      document.getElementById("grid").innerHTML =
+        `<div class="loading">failed to load catalog: ${err.message}</div>`;
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "hub": {
+    "title": "Claude Skill Hub",
+    "tagline": "Battle-tested Claude Code skills — download or restore with one line."
+  },
+  "skills": [
+    {
+      "name": "zeabur-github-deploy",
+      "title": "Zeabur + GitHub Three-Way Sync Deploy",
+      "description": "Publish a local project to a Zeabur server with GitHub-based three-way sync (local ↔ GitHub ↔ Zeabur), auto-redeploying on every git push. Orchestrates the zeabur:* skills in the right order and bakes in the non-obvious gotchas that block first-time setups.",
+      "version": "1.0.0",
+      "tags": ["deploy", "zeabur", "github", "ci/cd"]
+    }
+  ]
+}
