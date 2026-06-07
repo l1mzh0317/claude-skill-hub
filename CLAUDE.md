@@ -1,12 +1,16 @@
 # claude-skill-hub
 
-Static, data-driven hub to download & restore reusable Claude Code skills.
+Static, data-driven hub with two tabbed collections:
+- **Skills** — download & restore reusable Claude Code skills (`skills.json` + `skills/<name>/`).
+- **Demos** — gallery of live deployed web pages with screenshots (`demos.json` + `demos/<name>.jpg`).
+
 Built and deployed with the `zeabur-github-deploy` skill it hosts.
 
 ## Three-way sync
 Local git → GitHub (public, source of truth) → Zeabur auto-deploys on push to `main`.
-Add a skill: create `skills/<name>/` (+ `files.txt` listing its files), add an entry to
-`skills.json`, then `git push`.
+- Add a skill: create `skills/<name>/` (+ `files.txt`), add an entry to `skills.json`, `git push`.
+- Add a demo: screenshot the live page to `demos/<name>.jpg`, add an entry to `demos.json`, `git push`.
+  (Find deployed sites + their domains via the Zeabur API: `project ... { services { name domains { domain } } }`.)
 
 ## GitHub
 - Repo: https://github.com/l1mzh0317/claude-skill-hub (public)
