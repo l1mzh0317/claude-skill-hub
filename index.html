@@ -1,93 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude Skill Hub — skills &amp; live demos</title>
-<meta name="description" content="Battle-tested Claude Code skills you can restore with one line, plus a gallery of live deployed demos.">
+<title>alpha137 · 内部工作台</title>
+<meta name="description" content="alpha137 团队内部工作台 —— 技能、演示与在线服务集合。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0a0b;
-    --bg-soft:#111113;
-    --panel:#141416;
-    --line:#26261f;
-    --ink:#ece7da;
-    --dim:#8d887b;
-    --faint:#5a564d;
-    --amber:#ffb454;
-    --amber-deep:#f5970a;
-    --green:#8fe388;
+    --bg:#0a0a0b;--bg-soft:#111113;--panel:#141416;--line:#26261f;
+    --ink:#ece7da;--dim:#8d887b;--faint:#5a564d;
+    --amber:#ffb454;--amber-deep:#f5970a;--green:#8fe388;--yellow:#e8c54a;
     --shadow:0 18px 50px -20px rgba(0,0,0,.8);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--ink);
-    font-family:"IBM Plex Sans",sans-serif;font-weight:400;line-height:1.6;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;min-height:100vh;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans SC",sans-serif;font-weight:400;line-height:1.7;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;min-height:100vh}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
       radial-gradient(900px 480px at 78% -8%, rgba(255,180,84,.13), transparent 60%),
       radial-gradient(700px 600px at -5% 100%, rgba(143,227,136,.06), transparent 55%),
       linear-gradient(transparent 95%, rgba(255,180,84,.035) 95%) 0 0/100% 34px,
       linear-gradient(90deg, transparent 95%, rgba(255,180,84,.035) 95%) 0 0/34px 100%,
-      var(--bg);
-  }
-  body::after{
-    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+      var(--bg)}
+  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 
-  header.bar{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:22px 24px;max-width:1040px;margin:0 auto;
-    font-family:"Space Mono",monospace;font-size:13px;
-  }
-  .brand{display:flex;align-items:center;gap:10px;letter-spacing:.02em}
+  header.bar{display:flex;align-items:center;justify-content:space-between;
+    padding:22px 24px;max-width:1040px;margin:0 auto;font-family:"Space Mono",monospace;font-size:13px}
+  .brand{display:flex;align-items:center;gap:10px;letter-spacing:.04em;font-weight:700}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--amber);
     box-shadow:0 0 12px var(--amber-deep);animation:pulse 2.4s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-  .bar a{color:var(--dim);text-decoration:none;transition:color .2s}
-  .bar a:hover{color:var(--amber)}
+  .bar .tag-internal{color:var(--faint);letter-spacing:.18em;font-size:11px}
 
-  .hero{padding:64px 0 30px;text-align:left}
-  .kicker{font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.32em;
+  .hero{padding:64px 0 30px}
+  .kicker{font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.3em;
     text-transform:uppercase;color:var(--amber);opacity:0;animation:rise .7s .05s forwards}
   h1{font-family:"Space Mono",monospace;font-weight:700;
-    font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.02;letter-spacing:-.01em;margin:18px 0 0;
+    font-size:clamp(2.2rem,6.5vw,4.4rem);line-height:1.08;letter-spacing:.01em;margin:18px 0 0;
     text-shadow:0 0 38px rgba(255,180,84,.22)}
-  h1 .cursor{display:inline-block;width:.55ch;height:1em;vertical-align:-.12em;
-    background:var(--amber);margin-left:.12ch;animation:blink 1.05s steps(1) infinite;
-    box-shadow:0 0 14px var(--amber-deep)}
+  h1 .cursor{display:inline-block;width:.5ch;height:1em;vertical-align:-.12em;background:var(--amber);
+    margin-left:.14ch;animation:blink 1.05s steps(1) infinite;box-shadow:0 0 14px var(--amber-deep)}
   @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
   h1 span.amber{color:var(--amber)}
-  .lede{max-width:62ch;margin:22px 0 0;color:var(--dim);font-size:1.12rem;font-weight:300;
+  .lede{max-width:60ch;margin:22px 0 0;color:var(--dim);font-size:1.1rem;font-weight:300;
     opacity:0;animation:rise .7s .18s forwards}
   .lede strong{color:var(--ink);font-weight:500}
 
-  /* tabs */
   .tabs{display:flex;align-items:center;gap:10px;margin:54px 0 26px;
     font-family:"Space Mono",monospace;flex-wrap:wrap}
   .tab{cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--dim);
-    font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
-    padding:9px 18px;border-radius:9px;transition:all .2s;display:inline-flex;align-items:center;gap:9px}
+    font-family:"Noto Sans SC",sans-serif;font-weight:500;font-size:14px;letter-spacing:.06em;
+    padding:9px 20px;border-radius:9px;transition:all .2s;display:inline-flex;align-items:center;gap:9px}
   .tab:hover{color:var(--ink);border-color:#3a382e}
   .tab.active{color:var(--bg);background:var(--amber);border-color:var(--amber);font-weight:700}
-  .tab .n{font-size:11px;opacity:.75}
+  .tab .n{font-family:"Space Mono",monospace;font-size:11px;opacity:.75}
   .tabs .rule{flex:1;height:1px;min-width:30px;background:linear-gradient(90deg,var(--line),transparent)}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:22px}
 
   .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
     display:flex;flex-direction:column;box-shadow:var(--shadow);
-    transition:transform .25s, border-color .25s;position:relative;
-    opacity:0;animation:rise .6s forwards}
+    transition:transform .25s, border-color .25s;position:relative;opacity:0;animation:rise .6s forwards}
   .card:hover{transform:translateY(-4px);border-color:#3a382e}
   .card .titlebar{display:flex;align-items:center;gap:8px;padding:12px 16px;
     border-bottom:1px solid var(--line);background:rgba(255,255,255,.012)}
@@ -95,44 +75,53 @@
   .card .titlebar .tdot:nth-child(1){background:#3a3128}
   .card .titlebar .fname{margin-left:8px;font-family:"Space Mono",monospace;font-size:12px;color:var(--faint)}
   .card .body{padding:22px 20px 20px;display:flex;flex-direction:column;flex:1}
-  .card h3{font-family:"Space Mono",monospace;font-weight:700;font-size:1.18rem;
-    color:var(--amber);line-height:1.25;margin-bottom:6px}
+  .card h3{font-family:"Space Mono",monospace;font-weight:700;font-size:1.15rem;
+    color:var(--amber);line-height:1.3;margin-bottom:6px}
   .card .ver{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);margin-bottom:14px}
-  .card p.desc{color:var(--dim);font-size:.96rem;font-weight:300;flex:1}
+  .card p.desc{color:var(--dim);font-size:.95rem;font-weight:300;flex:1}
   .tags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 18px}
-  .tag{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.05em;
+  .tag{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.04em;
     color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:3px 8px}
-  .card .cmd{display:flex;align-items:center;gap:14px;background:var(--bg-soft);
+  .card .cmd{display:flex;align-items:center;gap:12px;background:var(--bg-soft);
     border:1px solid var(--line);border-radius:9px;padding:12px 13px;
     font-family:"Space Mono",monospace;font-size:12px}
   .card .cmd code{color:var(--ink);white-space:nowrap;overflow-x:auto;flex:1;scrollbar-width:none}
   .card .cmd code::-webkit-scrollbar{display:none}
   .card .cmd code .pr{color:var(--amber);user-select:none}
+  .cmd-label{font-family:"Noto Sans SC";font-size:11.5px;color:var(--faint);margin-bottom:8px;letter-spacing:.04em}
   .copy{flex-shrink:0;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--dim);
-    font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
-    padding:7px 12px;border-radius:7px;transition:all .18s}
+    font-family:"Noto Sans SC";font-size:12px;padding:7px 13px;border-radius:7px;transition:all .18s}
   .copy:hover{color:var(--bg);background:var(--amber);border-color:var(--amber)}
   .copy.ok{color:var(--green);border-color:var(--green)}
   .card-actions{display:flex;gap:12px;margin-top:14px;align-items:center}
-  .dl{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.04em;color:var(--dim);
-    text-decoration:none;border-bottom:1px dashed var(--faint);padding-bottom:1px;
-    transition:color .2s,border-color .2s}
-  .dl:hover{color:var(--amber);border-color:var(--amber)}
+  .act{font-family:"Noto Sans SC";font-size:12.5px;color:var(--dim);text-decoration:none;
+    border-bottom:1px dashed var(--faint);padding-bottom:1px;transition:color .2s,border-color .2s}
+  .act:hover{color:var(--amber);border-color:var(--amber)}
   .card-actions .spacer{flex:1}
-  .card-actions .src{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--faint);text-decoration:none}
-  .card-actions .src:hover{color:var(--ink)}
 
   /* demo card */
   .demo-card .thumb{display:block;position:relative;border-bottom:1px solid var(--line);
     aspect-ratio:16/9;overflow:hidden;background:#000}
   .demo-card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
   .demo-card:hover .thumb img{transform:scale(1.05)}
-  .demo-card .thumb .visit-tag{position:absolute;right:10px;bottom:10px;
-    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.05em;
-    background:rgba(10,10,11,.78);color:var(--amber);border:1px solid var(--line);
-    padding:5px 10px;border-radius:6px;backdrop-filter:blur(4px)}
+  .demo-card .thumb .visit-tag{position:absolute;right:10px;bottom:10px;font-family:"Noto Sans SC";
+    font-size:11.5px;background:rgba(10,10,11,.78);color:var(--amber);border:1px solid var(--line);
+    padding:5px 11px;border-radius:6px;backdrop-filter:blur(4px)}
   .demo-card .body{padding:18px 20px 20px}
   .demo-card .ver{margin-bottom:12px}
+
+  /* service card */
+  .svc .status{display:inline-flex;align-items:center;gap:6px}
+  .svc-open{display:inline-flex;align-items:center;gap:7px;font-family:"Noto Sans SC";font-size:13px;
+    color:var(--bg);background:var(--amber);border:1px solid var(--amber);border-radius:8px;
+    padding:8px 16px;text-decoration:none;font-weight:500;transition:filter .2s}
+  .svc-open:hover{filter:brightness(1.08)}
+  .svc-open.disabled{background:transparent;color:var(--faint);border-color:var(--line);pointer-events:none}
+
+  .empty{grid-column:1/-1;border:1px dashed var(--line);border-radius:14px;padding:54px 24px;
+    text-align:center;color:var(--dim);background:rgba(255,255,255,.01)}
+  .empty .big{font-family:"Space Mono",monospace;color:var(--amber);font-size:1.1rem;margin-bottom:8px}
+  .empty .sub{font-size:.92rem;font-weight:300;color:var(--faint)}
 
   .how{margin:74px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .how .step{border-left:2px solid var(--line);padding:4px 0 4px 18px}
@@ -143,75 +132,71 @@
   footer{margin:80px 0 50px;padding-top:26px;border-top:1px solid var(--line);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
     font-family:"Space Mono",monospace;font-size:12px;color:var(--faint)}
-  footer a{color:var(--dim);text-decoration:none}
-  footer a:hover{color:var(--amber)}
 
   .loading{color:var(--faint);font-family:"Space Mono",monospace;font-size:13px;padding:20px 0}
   @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-  @media(max-width:560px){
-    .grid{grid-template-columns:1fr}
-    .how{grid-template-columns:1fr}
-    .hero{padding:40px 0 20px}
-    .card .cmd code{font-size:11.5px}
-  }
+  @media(max-width:560px){.grid{grid-template-columns:1fr}.how{grid-template-columns:1fr}
+    .hero{padding:40px 0 20px}.card .cmd code{font-size:11.5px}}
 </style>
 </head>
 <body>
 
 <header class="bar">
-  <div class="brand"><span class="dot"></span> CLAUDE&nbsp;SKILL&nbsp;HUB</div>
-  <nav><a id="repo-link" href="#" target="_blank" rel="noopener">/ source on github</a></nav>
+  <div class="brand"><span class="dot"></span> ALPHA137</div>
+  <div class="tag-internal">内部 · INTERNAL</div>
 </header>
 
 <main class="wrap">
 
   <section class="hero">
-    <div class="kicker">// reusable skills + live demos</div>
-    <h1>Skills &amp; demos,<br><span class="amber">one place</span><span class="cursor"></span></h1>
-    <p class="lede"><strong>Claude Code skills</strong> you can restore onto any machine with a single line — and a gallery of <strong>live demos</strong> deployed to the server.</p>
+    <div class="kicker">// 团队内部工作台</div>
+    <h1>技能 · 演示<br><span class="amber">在线服务</span><span class="cursor"></span></h1>
+    <p class="lede">alpha137 团队的内部入口 —— <strong>技能</strong>装到本机即用，<strong>演示</strong>一点就开，<strong>在线服务</strong>随取随用。</p>
   </section>
 
   <div class="tabs" id="tabs">
-    <button class="tab active" data-tab="skills">Skills <span class="n" id="skills-count"></span></button>
-    <button class="tab" data-tab="demos">Demos <span class="n" id="demos-count"></span></button>
+    <button class="tab active" data-tab="skills">技能 <span class="n" id="skills-count"></span></button>
+    <button class="tab" data-tab="demos">演示 <span class="n" id="demos-count"></span></button>
+    <button class="tab" data-tab="services">服务 <span class="n" id="services-count"></span></button>
     <div class="rule"></div>
   </div>
 
-  <div id="grid" class="grid"><div class="loading">loading…</div></div>
+  <div id="grid" class="grid"><div class="loading">加载中…</div></div>
 
   <section class="how" id="how-skills">
-    <div class="step"><div class="n">01</div><h4>Pick a skill</h4><p>Each card has its one-line restore command and a direct file download.</p></div>
-    <div class="step"><div class="n">02</div><h4>Run one line</h4><p><code>curl … | bash -s &lt;name&gt;</code> writes the skill into <code>~/.claude/skills/</code> — nothing else.</p></div>
-    <div class="step"><div class="n">03</div><h4>Reload</h4><p>Restart Claude Code (or <code>/reload</code>) and the skill is live.</p></div>
+    <div class="step"><div class="n">01</div><h4>选技能</h4><p>每张卡都有一键安装命令和原文查看。</p></div>
+    <div class="step"><div class="n">02</div><h4>一行装好</h4><p><code>curl … | bash -s &lt;名&gt;</code> 会把技能写入 <code>~/.claude/skills/</code>，仅此而已。</p></div>
+    <div class="step"><div class="n">03</div><h4>重载生效</h4><p>重启 Claude Code（或 <code>/reload</code>），技能即可用。</p></div>
   </section>
 
   <section class="how" id="how-demos" style="display:none">
-    <div class="step"><div class="n">01</div><h4>Browse</h4><p>Each demo is a real page deployed on the Hong Kong server, with a live thumbnail.</p></div>
-    <div class="step"><div class="n">02</div><h4>Visit</h4><p>Click a card to open the running site in a new tab — or jump to its source.</p></div>
-    <div class="step"><div class="n">03</div><h4>Ship more</h4><p>New deploys are added with the <code>zeabur-github-deploy</code> skill, then listed here.</p></div>
+    <div class="step"><div class="n">01</div><h4>浏览</h4><p>每个演示都是真实上线的页面，带实时缩略图。</p></div>
+    <div class="step"><div class="n">02</div><h4>打开</h4><p>点卡片在新标签打开运行中的站点。</p></div>
+    <div class="step"><div class="n">03</div><h4>持续更新</h4><p>新上线的作品会陆续补充到这里。</p></div>
+  </section>
+
+  <section class="how" id="how-services" style="display:none">
+    <div class="step"><div class="n">01</div><h4>选服务</h4><p>内部在线服务集合，按用途分类。</p></div>
+    <div class="step"><div class="n">02</div><h4>一键打开</h4><p>点「打开服务」直接进入对应工具。</p></div>
+    <div class="step"><div class="n">03</div><h4>持续接入</h4><p>更多服务会陆续接入，敬请期待。</p></div>
   </section>
 
   <footer>
-    <div>Built &amp; deployed with the <span style="color:var(--amber)">zeabur-github-deploy</span> skill it hosts.</div>
-    <div>local ↔ github ↔ zeabur · auto-deploy on push</div>
+    <div>© alpha137 · 内部工具</div>
+    <div>技能 · 演示 · 服务</div>
   </footer>
 
 </main>
 
 <script>
-  const GH_OWNER = "l1mzh0317";
-  const GH_REPO  = "claude-skill-hub";
-  const ORIGIN   = location.origin.startsWith("http") ? location.origin : "https://claude-skill-hub.zeabur.app";
-  document.getElementById("repo-link").href = `https://github.com/${GH_OWNER}/${GH_REPO}`;
-
+  const ORIGIN = location.origin.startsWith("http") ? location.origin : "https://claude-skill-hub.zeabur.app";
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
   const cmdFor  = (name) => `curl -fsSL ${ORIGIN}/install.sh | bash -s ${name}`;
   const cmdHTML = (name) => `<span class="pr">$</span> ${esc(cmdFor(name))}`;
 
   const grid = document.getElementById("grid");
-  let DATA = { skills: [], demos: [] };
-  let CURRENT = "skills";
+  let DATA = { skills: [], demos: [], services: [] };
 
   function wireCopy(btn){
     btn.addEventListener("click", async () => {
@@ -219,8 +204,8 @@
       const text = el.textContent.replace(/^\$\s*/, "");
       try { await navigator.clipboard.writeText(text); }
       catch(e){ const r=document.createRange();r.selectNode(el);getSelection().removeAllRanges();getSelection().addRange(r);document.execCommand("copy"); }
-      const old = btn.textContent; btn.textContent = "copied ✓"; btn.classList.add("ok");
-      setTimeout(()=>{btn.textContent=old;btn.classList.remove("ok");}, 1600);
+      btn.textContent = "已复制 ✓"; btn.classList.add("ok");
+      setTimeout(()=>{btn.textContent="复制";btn.classList.remove("ok");}, 1600);
     });
   }
 
@@ -228,8 +213,7 @@
     const tags = (s.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
     const cmdId = `cmd-${esc(s.name)}`;
     const card = document.createElement("article");
-    card.className = "card";
-    card.style.animationDelay = `${0.05 + i*0.07}s`;
+    card.className = "card"; card.style.animationDelay = `${0.05 + i*0.07}s`;
     card.innerHTML = `
       <div class="titlebar"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
         <span class="fname">~/.claude/skills/${esc(s.name)}/</span></div>
@@ -238,53 +222,83 @@
         <div class="ver">v${esc(s.version||"1.0.0")} · ${esc(s.name)}</div>
         <p class="desc">${esc(s.description)}</p>
         <div class="tags">${tags}</div>
+        <div class="cmd-label">一键装到本机：</div>
         <div class="cmd"><code id="${cmdId}">${cmdHTML(s.name)}</code>
-          <button class="copy" data-copy-target="${cmdId}">copy</button></div>
+          <button class="copy" data-copy-target="${cmdId}">复制</button></div>
         <div class="card-actions">
-          <a class="dl" href="skills/${esc(s.name)}/SKILL.md" download>↓ download SKILL.md</a>
+          <a class="act" href="skills/${esc(s.name)}/SKILL.md" download>↓ 下载 SKILL.md</a>
           <span class="spacer"></span>
-          <a class="src" href="skills/${esc(s.name)}/SKILL.md" target="_blank" rel="noopener">view raw ↗</a>
+          <a class="act" href="skills/${esc(s.name)}/SKILL.md" target="_blank" rel="noopener">查看原文</a>
         </div>
       </div>`;
-    card.querySelector(".copy") && wireCopy(card.querySelector(".copy"));
+    const c = card.querySelector(".copy"); if(c) wireCopy(c);
     return card;
   }
 
   function demoCard(d, i){
     const tags = (d.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
     const host = (()=>{ try { return new URL(d.url).host; } catch(e){ return esc(d.url); } })();
-    const srcLink = d.repo ? `<a class="src" href="${esc(d.repo)}" target="_blank" rel="noopener">source ↗</a>` : "";
     const card = document.createElement("article");
-    card.className = "card demo-card";
-    card.style.animationDelay = `${0.05 + i*0.07}s`;
+    card.className = "card demo-card"; card.style.animationDelay = `${0.05 + i*0.07}s`;
     card.innerHTML = `
       <a class="thumb" href="${esc(d.url)}" target="_blank" rel="noopener">
-        <img src="${esc(d.thumb)}" alt="${esc(d.title)} screenshot" loading="lazy">
-        <span class="visit-tag">visit ↗</span>
-      </a>
+        <img src="${esc(d.thumb)}" alt="${esc(d.title)} 截图" loading="lazy">
+        <span class="visit-tag">打开 ↗</span></a>
       <div class="body">
         <h3>${esc(d.title)}</h3>
         <div class="ver">${esc(host)}</div>
         <p class="desc">${esc(d.description)}</p>
         <div class="tags">${tags}</div>
         <div class="card-actions">
-          <a class="dl" href="${esc(d.url)}" target="_blank" rel="noopener">↗ open live site</a>
-          <span class="spacer"></span>
-          ${srcLink}
+          <a class="act" href="${esc(d.url)}" target="_blank" rel="noopener">↗ 打开线上页面</a>
         </div>
       </div>`;
     return card;
   }
 
+  function serviceCard(s, i){
+    const tags = (s.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
+    const maint = s.status === "maintenance" || s.online === false;
+    const statusHTML = maint
+      ? `<span class="status">🟡 维护中</span>`
+      : `<span class="status">🟢 在线</span>`;
+    const openBtn = (s.url && !maint)
+      ? `<a class="svc-open" href="${esc(s.url)}" target="_blank" rel="noopener">打开服务 ↗</a>`
+      : `<span class="svc-open disabled">${maint ? "维护中" : "即将开放"}</span>`;
+    const card = document.createElement("article");
+    card.className = "card svc"; card.style.animationDelay = `${0.05 + i*0.07}s`;
+    card.innerHTML = `
+      <div class="titlebar"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+        <span class="fname">service · ${esc(s.name||"")}</span></div>
+      <div class="body">
+        <h3>${esc(s.title)}</h3>
+        <div class="ver">${statusHTML}</div>
+        <p class="desc">${esc(s.description)}</p>
+        <div class="tags">${tags}</div>
+        <div class="card-actions">${openBtn}</div>
+      </div>`;
+    return card;
+  }
+
+  const EMPTY = {
+    services: { big: "服务陆续接入中", sub: "更多内部在线服务即将上线，敬请期待。" },
+    demos:    { big: "暂无演示", sub: "新上线的作品会陆续补充到这里。" },
+    skills:   { big: "暂无技能", sub: "技能会陆续补充到这里。" },
+  };
+
   function render(tab){
-    CURRENT = tab;
     document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
-    document.getElementById("how-skills").style.display = tab === "skills" ? "" : "none";
-    document.getElementById("how-demos").style.display  = tab === "demos"  ? "" : "none";
+    ["skills","demos","services"].forEach(t =>
+      document.getElementById("how-"+t).style.display = t === tab ? "" : "none");
     grid.innerHTML = "";
     const items = DATA[tab] || [];
-    if(!items.length){ grid.innerHTML = `<div class="loading">nothing here yet.</div>`; return; }
-    items.forEach((item, i) => grid.appendChild(tab === "skills" ? skillCard(item, i) : demoCard(item, i)));
+    if(!items.length){
+      const e = EMPTY[tab];
+      grid.innerHTML = `<div class="empty"><div class="big">${e.big}</div><div class="sub">${e.sub}</div></div>`;
+      return;
+    }
+    const maker = tab === "skills" ? skillCard : tab === "demos" ? demoCard : serviceCard;
+    items.forEach((item, i) => grid.appendChild(maker(item, i)));
   }
 
   document.querySelectorAll(".tab").forEach(btn =>
@@ -293,14 +307,15 @@
   Promise.all([
     fetch("skills.json").then(r=>r.json()).catch(()=>({skills:[]})),
     fetch("demos.json").then(r=>r.json()).catch(()=>({demos:[]})),
-  ]).then(([sk, dm]) => {
-    DATA.skills = sk.skills || [];
-    DATA.demos  = dm.demos  || [];
-    document.getElementById("skills-count").textContent = DATA.skills.length;
-    document.getElementById("demos-count").textContent  = DATA.demos.length;
-    const start = location.hash.replace("#","") === "demos" ? "demos" : "skills";
-    render(start);
-  }).catch(err => { grid.innerHTML = `<div class="loading">failed to load: ${esc(err.message)}</div>`; });
+    fetch("services.json").then(r=>r.json()).catch(()=>({services:[]})),
+  ]).then(([sk, dm, sv]) => {
+    DATA.skills = sk.skills || []; DATA.demos = dm.demos || []; DATA.services = sv.services || [];
+    document.getElementById("skills-count").textContent   = DATA.skills.length;
+    document.getElementById("demos-count").textContent    = DATA.demos.length;
+    document.getElementById("services-count").textContent = DATA.services.length;
+    const h = location.hash.replace("#","");
+    render(["skills","demos","services"].includes(h) ? h : "skills");
+  }).catch(err => { grid.innerHTML = `<div class="loading">加载失败：${esc(err.message)}</div>`; });
 </script>
 </body>
 </html>

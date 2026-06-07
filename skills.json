@@ -1,15 +1,15 @@
 {
   "hub": {
-    "title": "Claude Skill Hub",
-    "tagline": "Battle-tested Claude Code skills — download or restore with one line."
+    "title": "alpha137",
+    "tagline": "团队内部的技能、演示与在线服务集合。"
   },
   "skills": [
     {
       "name": "zeabur-github-deploy",
-      "title": "Zeabur + GitHub Three-Way Sync Deploy",
-      "description": "Publish a local project to a Zeabur server with GitHub-based three-way sync (local ↔ GitHub ↔ Zeabur), auto-redeploying on every git push. Orchestrates the zeabur:* skills in the right order and bakes in the non-obvious gotchas that block first-time setups.",
+      "title": "Zeabur + GitHub 三端同步部署",
+      "description": "把本地项目发布到 Zeabur 服务器，并打通本地 ↔ GitHub ↔ Zeabur 三端同步，每次 git push 自动重新部署。把 zeabur:* 系列技能按正确顺序串起来，并内置了首次配置最容易踩的那些坑。",
       "version": "1.0.0",
-      "tags": ["deploy", "zeabur", "github", "ci/cd"]
+      "tags": ["部署", "zeabur", "github", "ci/cd"]
     }
   ]
 }
