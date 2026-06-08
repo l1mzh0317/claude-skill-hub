@@ -1,3 +1,11 @@
 {
-  "services": []
+  "services": [
+    {
+      "name": "mirrorsea-vn",
+      "title": "镜海 · MirrorSea",
+      "description": "乙女视觉小说导演编排工作台——从自由文本大纲生成初稿，再就地编辑标题/设定/BG·BGM·SE/角色/节拍/心动时刻/分支选项与好感度/导演注记，自动保存、多项目管理，支持导出 Markdown / JSON / 打印。",
+      "url": "https://mirrorsea.zeabur.app",
+      "tags": ["otome", "视觉小说", "导演编排", "zeabur"]
+    }
+  ]
 }
