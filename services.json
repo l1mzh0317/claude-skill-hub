@@ -6,6 +6,13 @@
       "description": "乙女视觉小说导演编排工作台——从自由文本大纲生成初稿，再就地编辑标题/设定/BG·BGM·SE/角色/节拍/心动时刻/分支选项与好感度/导演注记，自动保存、多项目管理，支持导出 Markdown / JSON / 打印。",
       "url": "https://mirrorsea.zeabur.app",
       "tags": ["otome", "视觉小说", "导演编排", "zeabur"]
+    },
+    {
+      "name": "vault",
+      "title": "Vault · 龙库",
+      "description": "跑在远程服务器上的单文件零依赖「双面文档持久化挂载」服务：人面（/human/<name>，团队/agent 读写、唯一真源）由 LLM 加工成 agent 面（/agent/<name>，挂载点）。Token 鉴权，数据落盘持久化，git push 自动重新部署。",
+      "url": "https://longku-vault.zeabur.app",
+      "tags": ["持久化", "agent", "llm", "zeabur"]
     }
   ]
 }
