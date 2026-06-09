@@ -235,6 +235,7 @@
     <button class="tab active" data-tab="skills">技能 <span class="n" id="skills-count"></span></button>
     <button class="tab" data-tab="demos">演示 <span class="n" id="demos-count"></span></button>
     <button class="tab" data-tab="services">服务 <span class="n" id="services-count"></span></button>
+    <button class="tab" data-tab="plugins">插件 <span class="n" id="plugins-count"></span></button>
     <div class="rule"></div>
   </div>
 
@@ -254,12 +255,12 @@
   const cmdHTML = (name) => `<span class="pr">$</span> ${esc(cmdFor(name))}`;
 
   const grid = document.getElementById("grid");
-  let DATA = { skills: [], demos: [], services: [] };
+  let DATA = { skills: [], demos: [], services: [], plugins: [] };
 
   function wireCopy(btn){
     btn.addEventListener("click", async () => {
       const el = document.getElementById(btn.dataset.copyTarget);
-      const text = el.textContent.replace(/^\$\s*/, "");
+      const text = (el.innerText || el.textContent).replace(/^\$\s*/, "");
       try { await navigator.clipboard.writeText(text); }
       catch(e){ const r=document.createRange();r.selectNode(el);getSelection().removeAllRanges();getSelection().addRange(r);document.execCommand("copy"); }
       btn.textContent = "已复制 ✓"; btn.classList.add("ok");
@@ -338,10 +339,35 @@
     return card;
   }
 
+  function pluginCard(p, i){
+    const tags = (p.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
+    const cmdId = `cmd-${esc(p.name)}`;
+    const installCmd = p.install_cmd || "";
+    const cmdLines = installCmd.split("\n").filter(Boolean);
+    const cmdHTML = cmdLines.map(l => `<span class="pr">$</span> ${esc(l)}`).join("<br>");
+    const card = document.createElement("article");
+    card.className = "card"; card.style.animationDelay = `${0.05 + i*0.07}s`;
+    card.innerHTML = `
+      <div class="titlebar"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+        <span class="fname">plugin · ${esc(p.name)}</span></div>
+      <div class="body">
+        <h3>${esc(p.title)}</h3>
+        <div class="ver">v${esc(p.version||"0.1.0")} · ${esc(p.name)}</div>
+        <p class="desc">${esc(p.description)}</p>
+        <div class="tags">${tags}</div>
+        <div class="cmd-label">安装：</div>
+        <div class="cmd"><code id="${cmdId}">${cmdHTML}</code>
+          <button class="copy" data-copy-target="${cmdId}">复制</button></div>
+      </div>`;
+    const c = card.querySelector(".copy"); if(c) wireCopy(c);
+    return card;
+  }
+
   const EMPTY = {
     services: { big: "服务陆续接入中", sub: "更多内部在线服务即将上线，敬请期待。" },
     demos:    { big: "暂无演示", sub: "新上线的作品会陆续补充到这里。" },
     skills:   { big: "暂无技能", sub: "技能会陆续补充到这里。" },
+    plugins:  { big: "暂无插件", sub: "MCP server、CC hooks 等插件会陆续补充到这里。" },
   };
 
   function render(tab){
@@ -353,7 +379,7 @@
       grid.innerHTML = `<div class="empty"><div class="big">${e.big}</div><div class="sub">${e.sub}</div></div>`;
       return;
     }
-    const maker = tab === "skills" ? skillCard : tab === "demos" ? demoCard : serviceCard;
+    const maker = tab === "skills" ? skillCard : tab === "demos" ? demoCard : tab === "plugins" ? pluginCard : serviceCard;
     items.forEach((item, i) => grid.appendChild(maker(item, i)));
   }
 
@@ -364,13 +390,16 @@
     fetch("skills.json").then(r=>r.json()).catch(()=>({skills:[]})),
     fetch("demos.json").then(r=>r.json()).catch(()=>({demos:[]})),
     fetch("services.json").then(r=>r.json()).catch(()=>({services:[]})),
-  ]).then(([sk, dm, sv]) => {
+    fetch("plugins.json").then(r=>r.json()).catch(()=>({plugins:[]})),
+  ]).then(([sk, dm, sv, pl]) => {
     DATA.skills = sk.skills || []; DATA.demos = dm.demos || []; DATA.services = sv.services || [];
+    DATA.plugins = pl.plugins || [];
     document.getElementById("skills-count").textContent   = DATA.skills.length;
     document.getElementById("demos-count").textContent    = DATA.demos.length;
     document.getElementById("services-count").textContent = DATA.services.length;
+    document.getElementById("plugins-count").textContent  = DATA.plugins.length;
     const h = location.hash.replace("#","");
-    render(["skills","demos","services"].includes(h) ? h : "skills");
+    render(["skills","demos","services","plugins"].includes(h) ? h : "skills");
   }).catch(err => { grid.innerHTML = `<div class="loading">加载失败：${esc(err.message)}</div>`; });
 </script>
 </body>
