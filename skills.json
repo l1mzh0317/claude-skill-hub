@@ -10,6 +10,13 @@
       "description": "把本地项目发布到 Zeabur 服务器，并打通本地 ↔ GitHub ↔ Zeabur 三端同步，每次 git push 自动重新部署。把 zeabur:* 系列技能按正确顺序串起来，并内置了首次配置最容易踩的那些坑。",
       "version": "1.0.0",
       "tags": ["部署", "zeabur", "github", "ci/cd"]
+    },
+    {
+      "name": "vault-mcp",
+      "title": "Vault MCP — 远程文档与上下文服务器",
+      "description": "通过 longku-vault MCP 服务器持久化 session 上下文、创建上下文集（context set）、管理跨 session 参考文档。支持 session 转录保存、主题文档写入、上下文集挂载，让知识不随 session 丢失。触发词：保存到 vault、上下文集、设定集、挂载上下文。",
+      "version": "1.0.0",
+      "tags": ["vault", "mcp", "上下文", "文档", "知识管理"]
     }
   ]
 }
