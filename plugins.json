@@ -6,7 +6,7 @@
       "description": "MCP (Model Context Protocol) server，嵌入 Vault 服务。让 Claude Code、Codex 等本地工具通过 HTTP 直接 挂载/读写/管理 Vault 文档与上下文集。11 个 Tool（CRUD + 搜索）+ Resources（文档/上下文集/文件夹可 mount），Streamable HTTP 传输，零依赖。",
       "version": "0.1.0",
       "tags": ["mcp", "vault", "context", "claude-code"],
-      "install_cmd": "cat > ~/.claude/mcp.json <<'EOF'\n{\n  \"mcpServers\": {\n    \"vault\": {\n      \"type\": \"http\",\n      \"url\": \"https://longku-vault.zeabur.app/mcp\",\n      \"headers\": {\n        \"Authorization\": \"Bearer 0052c321e3489af4911fb418b60d6732d9dcf4ad5a8eccde\"\n      }\n    }\n  }\n}\nEOF\n# 重启 Claude Code 生效"
+      "install_cmd": "cat > ~/.claude/mcp.json <<'EOF'\n{\n  \"mcpServers\": {\n    \"vault\": {\n      \"type\": \"http\",\n      \"url\": \"https://longku-vault.zeabur.app/mcp\",\n      \"headers\": {\n        \"Authorization\": \"Bearer <YOUR_VAULT_TOKEN>\"\n      }\n    }\n  }\n}\nEOF\n# 把 <YOUR_VAULT_TOKEN> 换成你的 Vault token, 重启 Claude Code 生效"
     },
     {
       "name": "vault-session-logger",
@@ -14,7 +14,7 @@
       "description": "CC Stop/SessionStart hook —— 启用后，Claude Code 退出时自动将完整对话 transcript POST 到 Vault 存档（sessions/ 目录），并调 LLM summarize 成要点。通过 flag-file toggle 开/关（touch ~/.vault-logging-on），零开销。",
       "version": "0.1.0",
       "tags": ["hooks", "session", "logging", "claude-code"],
-      "install_cmd": "cd ~/Projects/vault && bash hooks/install.sh && touch ~/.vault-logging-on\n# 确保 VAULT_TOKEN 在环境变量或 ~/.vault-token 文件中\n# 重启 Claude Code 生效"
+      "install_cmd": "git clone https://github.com/l1mzh0317/vault.git ~/vault\nexport VAULT_URL=\"https://your-vault.example.com\"   # 换成你的实例\necho '你的_TOKEN' > ~/.vault-token && chmod 600 ~/.vault-token\nbash ~/vault/hooks/install.sh && touch ~/.vault-logging-on\nbash ~/vault/hooks/session-log.sh doctor   # 体检确认全绿\n# 重启 Claude Code 生效"
     }
   ]
 }
