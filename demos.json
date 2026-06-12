@@ -10,6 +10,15 @@
       "tags": ["otome", "deduction", "html"]
     },
     {
+      "name": "rouge-nocturne",
+      "title": "夜阑鬼牌 · ROUGE NOCTURNE",
+      "description": "雨夜误入不存在的宅邸，与银发男主「夜阑」对坐抽鬼牌——Three.js 血月辉光、意象牌焚对台词、心渊好感解锁提示、双结局的哥特乙女纸牌游戏。",
+      "url": "https://rouge-nocturne.zeabur.app",
+      "repo": "https://github.com/l1mzh0317/rouge-nocturne",
+      "thumb": "demos/rouge-nocturne.jpg",
+      "tags": ["otome", "game", "threejs"]
+    },
+    {
       "name": "last-old-maid",
       "title": "最後の鬼札 · The Last Old Maid",
       "description": "暴雨夜的洋馆里，与三名陌生而危险的男子抽鬼牌——在真相、心动与生还之间下注的单页 HTML 纸牌小游戏。",
