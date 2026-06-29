@@ -26,6 +26,15 @@
       "repo": "https://github.com/l1mzh0317/last-old-maid",
       "thumb": "demos/last-old-maid.jpg",
       "tags": ["game", "cards", "html"]
+    },
+    {
+      "name": "otome-framework-v2",
+      "title": "2.5D 商业乙女游戏 · 系统框架全景图",
+      "description": "商业乙女游戏全系统框架可视化：剧情管线、Live2D 演出、养成数值、商业化埋点、家园/换装/抽卡子系统一张图纵览。",
+      "url": "https://otome-framework-v2.zeabur.app",
+      "repo": "https://github.com/l1mzh0317/otome-framework-v2",
+      "thumb": "demos/otome-framework-v2.jpg",
+      "tags": ["otome", "design", "framework"]
     }
   ]
 }
